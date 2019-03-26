@@ -1,0 +1,33 @@
+.grid-container {
+  padding: 20px;
+}
+
+.search-input-container {
+  width: 80%;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #009b8b;
+}
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+app-main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}

@@ -1,0 +1,43 @@
+<app-main-nav
+  *ngIf="filteredItemsList != null"
+  [filteredItemsList]="filteredItemsList"
+  (onFiltersChange)="filtersChanged($event)"
+  [counter]="counter"
+></app-main-nav>
+<mat-form-field style="margin-top: 100px; margin-left: 20px">
+  <mat-label>Order By</mat-label>
+  <mat-select>
+    <mat-option>-- None --</mat-option>
+    <mat-optgroup *ngFor="let filter of filters" [label]="filter.name">
+      <mat-option
+        *ngFor="let filterType of filter.type"
+        (click)="orderBy(filterType.value, filterType.value2)"
+      >
+        {{ filterType.viewValue }}
+      </mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>
+<mat-grid-list cols="3" rowHeight="100">
+  <mat-grid-tile
+    class="aligner"
+    [rowspan]="8"
+    *ngFor="
+      let item of (filteredItemsList
+        | paginate: { itemsPerPage: 5, currentPage: p })
+    "
+  >
+    <app-item-card
+      *ngIf="item"
+      [item]="item"
+      [fromMainGrid]="true"
+      (onFavouriteAddRm)="favouriteAddRm($event)"
+    ></app-item-card>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="1" [colspan]="3">
+    <pagination-controls
+      class="my-pagination"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,30 @@
+.example-card {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.mat-card-avatar {
+  background-image: url("../../assets/user1.png");
+  background-size: cover;
+}
+
+.mat-card-content {
+  height: 180px;
+}
+
+.margin {
+  margin-left: 15px;
+}
+
+.hand:hover {
+  cursor: pointer;
+}
+
+.favourite-icon {
+  color: #ff1e46;
+}
+
+/* Sobrecargas */
+.mat-card-header .mat-card-subtitle:not(:first-child) {
+  margin-top: -15px !important;
+}

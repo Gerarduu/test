@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-icon style="color: #005A51">
+        search
+      </mat-icon>
+      <input
+        matInput
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="filterItems()"
+        class="search-input"
+      />
+      <span class="spacer"></span>
+      <mat-icon
+        *ngIf="counter > 0"
+        matBadge="{{ counter }}"
+        matBadgeColor="warn"
+        class="favourite-icon-navbar hand margin"
+        (click)="openDialog()"
+        >favorite_border</mat-icon
+      >
+      <mat-icon
+        *ngIf="counter < 1"
+        class="favourite-icon-navbar hand margin"
+        (click)="openDialog()"
+        >favorite_border</mat-icon
+      >
+    </mat-toolbar>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
