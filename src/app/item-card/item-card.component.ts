@@ -29,8 +29,8 @@ export class ItemCardComponent implements OnInit {
       message = "removed from favourites";
     }
 
-    this.itemsService.setFavourite(this.item);
-    this.onFavouriteAddRm.emit();
+    //this.itemsService.setFavourite(this.item);
+    this.onFavouriteAddRm.emit({ inItem: this.item });
     this.showSnackBar(message, "Dismiss", this.item);
   }
 

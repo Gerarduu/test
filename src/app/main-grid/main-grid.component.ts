@@ -85,7 +85,7 @@ export class MainGridComponent {
     if (this.counter > 0) {
       if (this.filteredItemsList) {
         if (this.filteredItemsList.length > 0) {
-          this.favouriteAddRm("");
+          this.favouriteAddRm();
         }
       }
     }
@@ -119,8 +119,20 @@ export class MainGridComponent {
     this.filteredItemsList = data.filteredItemsList;
   }
 
-  favouriteAddRm(data: any) {
+  favouriteAddRm(data?: any) {
     this.counter = 0;
+
+    if (data) {
+      for (let i = 0; i < this.filteredItemsList.length; i++) {
+        if (this.filteredItemsList[i].id == data.inItem.id) {
+          if (this.filteredItemsList[i].favourite == false) {
+            this.filteredItemsList[i].favourite = true;
+          } else {
+            this.itemsList[i].favourite = false;
+          }
+        }
+      }
+    }
 
     for (let i = 0; i < this.filteredItemsList.length; i++) {
       if (this.filteredItemsList[i].favourite == true) {
@@ -174,6 +186,15 @@ export class MainGridComponent {
 
   orderBy(inFilter, inType) {
     if (inFilter == "" && inType == "") {
+      //Mapping favourites to itemsListInit before reseting order
+      for (let i = 0; i < this.itemsListInit.length; i++) {
+        if (this.filteredItemsList[i].favourite == true) {
+          let id = this.filteredItemsList[i].id;
+
+          this.itemsListInit[id].favourite = true;
+        }
+      }
+
       this.filteredItemsList = JSON.parse(JSON.stringify(this.itemsListInit));
     } else {
       this.bubbleSort(this.filteredItemsList, inFilter);
