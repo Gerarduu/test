@@ -11,8 +11,7 @@ import { MatGridList } from "@angular/material";
 })
 export class MainGridComponent {
   itemsList: any = [];
-  itemsListInit: any = [];
-  filteredItemsList: any = null;
+  filteredItemsList: any = [];
   searchText: string;
   fromMainGrid = true;
   counter: number;
@@ -112,7 +111,6 @@ export class MainGridComponent {
       item.id = index;
     });
     this.filteredItemsList = this.itemsList;
-    this.itemsListInit = JSON.parse(JSON.stringify(this.itemsList));
   }
 
   filtersChanged(data: any) {
@@ -127,8 +125,10 @@ export class MainGridComponent {
         if (this.filteredItemsList[i].id == data.inItem.id) {
           if (this.filteredItemsList[i].favourite == false) {
             this.filteredItemsList[i].favourite = true;
+            console.log(data.inItem, " now is true");
           } else {
             this.itemsList[i].favourite = false;
+            console.log(data.inItem, " now is false");
           }
         }
       }
@@ -185,23 +185,10 @@ export class MainGridComponent {
   }
 
   orderBy(inFilter, inType) {
-    if (inFilter == "" && inType == "") {
-      //Mapping favourites to itemsListInit before reseting order
-      for (let i = 0; i < this.itemsListInit.length; i++) {
-        if (this.filteredItemsList[i].favourite == true) {
-          let id = this.filteredItemsList[i].id;
+    this.bubbleSort(this.filteredItemsList, inFilter);
 
-          this.itemsListInit[id].favourite = true;
-        }
-      }
-
-      this.filteredItemsList = JSON.parse(JSON.stringify(this.itemsListInit));
-    } else {
-      this.bubbleSort(this.filteredItemsList, inFilter);
-
-      if (inType == "desc") {
-        this.filteredItemsList = this.filteredItemsList.reverse();
-      }
+    if (inType == "desc") {
+      this.filteredItemsList = this.filteredItemsList.reverse();
     }
   }
 }

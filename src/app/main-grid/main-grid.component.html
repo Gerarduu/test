@@ -7,7 +7,6 @@
 <mat-form-field class="form-field">
   <mat-label>Order By</mat-label>
   <mat-select>
-    <mat-option (click)="orderBy('', '')"> None </mat-option>
     <mat-optgroup *ngFor="let filter of filters" [label]="filter.name">
       <mat-option
         *ngFor="let filterType of filter.type"
