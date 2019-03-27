@@ -18,7 +18,11 @@
     </mat-optgroup>
   </mat-select>
 </mat-form-field>
-<mat-grid-list cols="3" rowHeight="100">
+<mat-grid-list
+  [cols]="breakpoint"
+  (window:resize)="onResize($event)"
+  rowHeight="{{ rowHeight }}"
+>
   <mat-grid-tile
     class="aligner"
     [rowspan]="8"
@@ -34,10 +38,8 @@
       (onFavouriteAddRm)="favouriteAddRm($event)"
     ></app-item-card>
   </mat-grid-tile>
-  <mat-grid-tile [rowspan]="1" [colspan]="3">
-    <pagination-controls
-      class="my-pagination"
-      (pageChange)="p = $event"
-    ></pagination-controls>
-  </mat-grid-tile>
 </mat-grid-list>
+<pagination-controls
+  class="my-pagination"
+  (pageChange)="p = $event"
+></pagination-controls>

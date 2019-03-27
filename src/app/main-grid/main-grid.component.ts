@@ -21,6 +21,8 @@ export class MainGridComponent {
   fromMainGrid = true;
   counter: number;
   filter: any;
+  breakpoint: any = 3;
+  rowHeight: any = 100;
 
   filters: any = [
     {
@@ -57,6 +59,31 @@ export class MainGridComponent {
 
   ngOnInit() {
     this.getItems();
+
+    if (window.innerWidth <= 1550) {
+      this.breakpoint = 3;
+      this.rowHeight = 100;
+    }
+
+    if (window.innerWidth <= 1126) {
+      this.breakpoint = 2;
+      this.rowHeight = 115;
+    }
+
+    if (window.innerWidth <= 775) {
+      this.breakpoint = 1;
+      this.rowHeight = 130;
+    }
+  }
+
+  onResize(event) {
+    if (event.target.innerWidth <= 1550) {
+      this.breakpoint = 3;
+      this.rowHeight = 100;
+    } else if (event.target.innerWidth <= 1126) {
+      this.breakpoint = 2;
+      this.rowHeight = 115;
+    }
   }
 
   ngDoCheck() {
