@@ -6,7 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Pre-requisites: have *npm* & *nodeJS* installed on your computer.
 
-Clone the app into your local computer.
+Clone the repo into your local computer.
+
+Run `npm install npm@latest -g`
+
+Run `npm install -g @angular/cli@latest`
 
 Run `npm install`
 

@@ -46,7 +46,8 @@ export class MainNavComponent {
         if (
           item.filter1.includes(this.searchText) ||
           item.filter2.includes(this.searchText) ||
-          item.filter3.includes(this.searchText)
+          item.filter3.includes(this.searchText) ||
+          item.filter4.includes(this.searchText)
         ) {
           this.filteredItemsList.push(item);
         }

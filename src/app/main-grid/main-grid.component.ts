@@ -108,7 +108,8 @@ export class MainGridComponent {
       item.all = item.title + item.description + item.email + item.price;
       item.filter1 = item.all;
       item.filter2 = item.all.toLowerCase();
-      item.filter3 = item.all
+      item.filter3 = item.all.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      item.filter4 = item.all.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
