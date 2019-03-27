@@ -4,10 +4,10 @@
   (onFiltersChange)="filtersChanged($event)"
   [counter]="counter"
 ></app-main-nav>
-<mat-form-field style="margin-top: 100px; margin-left: 20px">
+<mat-form-field class="form-field">
   <mat-label>Order By</mat-label>
   <mat-select>
-    <mat-option>-- None --</mat-option>
+    <mat-option (click)="orderBy('', '')"> None </mat-option>
     <mat-optgroup *ngFor="let filter of filters" [label]="filter.name">
       <mat-option
         *ngFor="let filterType of filter.type"
@@ -18,11 +18,7 @@
     </mat-optgroup>
   </mat-select>
 </mat-form-field>
-<mat-grid-list
-  [cols]="breakpoint"
-  (window:resize)="onResize($event)"
-  rowHeight="{{ rowHeight }}"
->
+<mat-grid-list #grid>
   <mat-grid-tile
     class="aligner"
     [rowspan]="8"
@@ -39,7 +35,11 @@
     ></app-item-card>
   </mat-grid-tile>
 </mat-grid-list>
-<pagination-controls
-  class="my-pagination"
-  (pageChange)="p = $event"
-></pagination-controls>
+<mat-grid-list [cols]="1" [rowHeight]="55">
+  <mat-grid-tile>
+    <pagination-controls
+      class="my-pagination"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+  </mat-grid-tile>
+</mat-grid-list>

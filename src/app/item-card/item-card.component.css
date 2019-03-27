@@ -1,4 +1,4 @@
-.example-card {
+.card {
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -9,7 +9,7 @@
 }
 
 .mat-card-content {
-  height: 180px;
+  height: 205px;
 }
 
 .margin {

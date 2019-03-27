@@ -2,11 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ItemsService } from "../services/items-service/items.service";
 
 @Component({
-  selector: "app-login-dialog",
-  templateUrl: "./login-dialog.component.html",
-  styleUrls: ["./login-dialog.component.css"]
+  selector: "app-favourites-dialog",
+  templateUrl: "./favourites-dialog.component.html",
+  styleUrls: ["./favourites-dialog.component.css"]
 })
-export class LoginDialogComponent implements OnInit {
+export class FavouritesDialogComponent implements OnInit {
   itemsList: any = [];
   filteredItemsList: any = [];
   searchText: string;

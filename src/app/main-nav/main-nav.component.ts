@@ -1,12 +1,7 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { MatDialog } from "@angular/material";
-import { LoginDialogComponent } from "../login-dialog/login-dialog.component";
+import { FavouritesDialogComponent } from "../favourites-dialog/favourites-dialog.component";
 import { ItemsService } from "../services/items-service/items.service";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-main-nav",
@@ -29,7 +24,7 @@ export class MainNavComponent {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(LoginDialogComponent);
+    const dialogRef = this.dialog.open(FavouritesDialogComponent);
   }
 
   filterItems() {

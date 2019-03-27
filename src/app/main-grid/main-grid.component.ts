@@ -1,12 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { map } from "rxjs/operators";
-import {
-  Breakpoints,
-  BreakpointState,
-  BreakpointObserver
-} from "@angular/cdk/layout";
 import { ItemsService } from "../services/items-service/items.service";
-import { filterQueryId } from "@angular/core/src/view/util";
+import { MediaChange, ObservableMedia } from "@angular/flex-layout";
+import { MatGridList } from "@angular/material";
 
 @Component({
   selector: "app-main-grid",
@@ -15,14 +11,12 @@ import { filterQueryId } from "@angular/core/src/view/util";
 })
 export class MainGridComponent {
   itemsList: any = [];
+  itemsListInit: any = [];
   filteredItemsList: any = null;
   searchText: string;
-  rows: any;
   fromMainGrid = true;
   counter: number;
-  filter: any;
-  breakpoint: any = 3;
-  rowHeight: any = 100;
+  @ViewChild("grid") grid: MatGridList;
 
   filters: any = [
     {
@@ -55,35 +49,36 @@ export class MainGridComponent {
     }
   ];
 
-  constructor(public itemsService: ItemsService) {}
+  gridByBreakpoint = {
+    xl: 4,
+    lg: 4,
+    md: 3,
+    sm: 2,
+    xs: 1
+  };
+
+  heightByBreakpoint = {
+    xl: 115,
+    lg: 90,
+    md: 95,
+    sm: 105,
+    xs: 110
+  };
+
+  constructor(
+    public itemsService: ItemsService,
+    private mediaObserver: ObservableMedia
+  ) {}
+
+  ngAfterContentInit() {
+    this.mediaObserver.asObservable().subscribe((change: MediaChange) => {
+      this.grid.cols = this.gridByBreakpoint[change.mqAlias];
+      this.grid.rowHeight = this.heightByBreakpoint[change.mqAlias];
+    });
+  }
 
   ngOnInit() {
     this.getItems();
-
-    if (window.innerWidth <= 1550) {
-      this.breakpoint = 3;
-      this.rowHeight = 100;
-    }
-
-    if (window.innerWidth <= 1126) {
-      this.breakpoint = 2;
-      this.rowHeight = 115;
-    }
-
-    if (window.innerWidth <= 775) {
-      this.breakpoint = 1;
-      this.rowHeight = 130;
-    }
-  }
-
-  onResize(event) {
-    if (event.target.innerWidth <= 1550) {
-      this.breakpoint = 3;
-      this.rowHeight = 100;
-    } else if (event.target.innerWidth <= 1126) {
-      this.breakpoint = 2;
-      this.rowHeight = 115;
-    }
   }
 
   ngDoCheck() {
@@ -109,7 +104,7 @@ export class MainGridComponent {
       item.filter1 = item.all;
       item.filter2 = item.all.toLowerCase();
       item.filter3 = item.all.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      item.filter4 = item.all.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      item.filter4 = item.all
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
@@ -117,6 +112,7 @@ export class MainGridComponent {
       item.id = index;
     });
     this.filteredItemsList = this.itemsList;
+    this.itemsListInit = JSON.parse(JSON.stringify(this.itemsList));
   }
 
   filtersChanged(data: any) {
@@ -140,8 +136,6 @@ export class MainGridComponent {
 
     do {
       swapp = false;
-
-      console.log("inFilterBubble: ", inFilter);
 
       if (inFilter == "price") {
         for (let i = 0; i < n; i++) {
@@ -179,10 +173,14 @@ export class MainGridComponent {
   }
 
   orderBy(inFilter, inType) {
-    this.bubbleSort(this.filteredItemsList, inFilter);
+    if (inFilter == "" && inType == "") {
+      this.filteredItemsList = JSON.parse(JSON.stringify(this.itemsListInit));
+    } else {
+      this.bubbleSort(this.filteredItemsList, inFilter);
 
-    if (inType == "desc") {
-      this.filteredItemsList = this.filteredItemsList.reverse();
+      if (inType == "desc") {
+        this.filteredItemsList = this.filteredItemsList.reverse();
+      }
     }
   }
 }
