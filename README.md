@@ -8,9 +8,17 @@ Pre-requisites: have *npm* & *nodeJS* installed on your computer.
 
 Clone the app into your local computer.
 
+Run `npm install npm@latest -g`
+
 Run `npm install`
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+If it says: "ng: command not found":
+
+Run `npm install -g @angular/cli@latest`
+
+and then run `ng serve` again.
 
 ## Code scaffolding
 
