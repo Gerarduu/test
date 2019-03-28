@@ -15,7 +15,7 @@ export class MainGridComponent {
   searchText: string;
   fromMainGrid = true;
   counter: number;
-  filter: any = 'id';
+  filter: any = "id";
   type: any;
   @ViewChild("grid") grid: MatGridList;
 
@@ -51,7 +51,7 @@ export class MainGridComponent {
   ];
 
   gridByBreakpoint = {
-    xl: 4,
+    xl: 5,
     lg: 4,
     md: 3,
     sm: 2,
@@ -60,7 +60,7 @@ export class MainGridComponent {
 
   heightByBreakpoint = {
     xl: 115,
-    lg: 90,
+    lg: 105,
     md: 95,
     sm: 105,
     xs: 110
@@ -69,7 +69,7 @@ export class MainGridComponent {
   constructor(
     public itemsService: ItemsService,
     private mediaObserver: ObservableMedia
-  ) { }
+  ) {}
 
   ngAfterContentInit() {
     this.mediaObserver.asObservable().subscribe((change: MediaChange) => {
@@ -96,12 +96,11 @@ export class MainGridComponent {
     this.itemsService.getItemsListInit().then(data => {
       this.itemsList = data;
       this.setItems();
-
     });
   }
 
   setItems() {
-    this.itemsList.forEach(function (item, index) {
+    this.itemsList.forEach(function(item, index) {
       item.all = item.title + item.description + item.email + item.price;
       item.filter1 = item.all;
       item.filter2 = item.all.toLowerCase();
@@ -176,7 +175,6 @@ export class MainGridComponent {
   }
 
   orderBy(inFilter, inType) {
-
     this.filter = inFilter;
     this.type = inType;
     this.bubbleSort(this.filteredItemsList, this.filter);

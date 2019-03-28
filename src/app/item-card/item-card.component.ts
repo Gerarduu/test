@@ -16,9 +16,9 @@ export class ItemCardComponent implements OnInit {
   constructor(
     public itemsService: ItemsService,
     public snackBar: MatSnackBar
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   setFavourite() {
     let message;

@@ -1,24 +1,22 @@
+import { fakeAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MainGridComponent } from "./main-grid.component";
 
-import { MainGridComponent } from './main-grid.component';
-
-describe('MainGridComponent', () => {
+describe("MainGridComponent", () => {
   let component: MainGridComponent;
   let fixture: ComponentFixture<MainGridComponent>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainGridComponent ]
-    })
-    .compileComponents();
+      declarations: [MainGridComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 });

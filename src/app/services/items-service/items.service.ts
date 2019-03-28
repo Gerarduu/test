@@ -8,7 +8,7 @@ export class ItemsService {
   private itemsList: any = [];
   public favouriteCounter: number = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getItemsListInit(): Promise<any> {
     return Promise.resolve(this.getJSON()).then(data => {

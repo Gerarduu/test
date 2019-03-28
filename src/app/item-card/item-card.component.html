@@ -1,7 +1,9 @@
 <mat-card class="card">
   <mat-card-header>
     <div *ngIf="fromMainGrid" mat-card-avatar></div>
-    <mat-card-title><span class="item-title">{{ item.title }}</span></mat-card-title>
+    <mat-card-title
+      ><span class="item-title">{{ item.title }}</span></mat-card-title
+    >
     <mat-card-subtitle *ngIf="fromMainGrid">{{ item.email }}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="'../../assets/productImgs/{{ item.image }}" />
@@ -12,9 +14,17 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <i *ngIf="item.favourite == false" class="material-icons margin hand"
-      (click)="setFavourite(item)">favorite_border</i>
-    <i *ngIf="item.favourite == true" class="material-icons margin hand favourite-icon"
-      (click)="setFavourite(item)">favorite</i>
+    <i
+      *ngIf="item.favourite == false"
+      class="material-icons margin hand"
+      (click)="setFavourite(item)"
+      >favorite_border</i
+    >
+    <i
+      *ngIf="item.favourite == true"
+      class="material-icons margin hand favourite-icon"
+      (click)="setFavourite(item)"
+      >favorite</i
+    >
   </mat-card-actions>
 </mat-card>
