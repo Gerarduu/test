@@ -16,9 +16,9 @@ export class ItemCardComponent implements OnInit {
   constructor(
     public itemsService: ItemsService,
     public snackBar: MatSnackBar
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   setFavourite() {
     let message;
@@ -29,7 +29,7 @@ export class ItemCardComponent implements OnInit {
       message = "removed from favourites";
     }
 
-    //this.itemsService.setFavourite(this.item);
+    this.itemsService.setFavourite(this.item);
     this.onFavouriteAddRm.emit({ inItem: this.item });
     this.showSnackBar(message, "Dismiss", this.item);
   }

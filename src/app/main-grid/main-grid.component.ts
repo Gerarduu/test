@@ -127,22 +127,8 @@ export class MainGridComponent {
   favouriteAddRm(data?: any) {
     this.counter = 0;
 
-    if (data) {
-      for (let i = 0; i < this.filteredItemsList.length; i++) {
-        if (this.filteredItemsList[i].id == data.inItem.id) {
-          if (this.filteredItemsList[i].favourite == false) {
-            this.filteredItemsList[i].favourite = true;
-            console.log(data.inItem, " now is true");
-          } else {
-            this.itemsList[i].favourite = false;
-            console.log(data.inItem, " now is false");
-          }
-        }
-      }
-    }
-
-    for (let i = 0; i < this.filteredItemsList.length; i++) {
-      if (this.filteredItemsList[i].favourite == true) {
+    for (let i = 0; i < this.itemsList.length; i++) {
+      if (this.itemsList[i].favourite == true) {
         this.counter++;
       }
     }
