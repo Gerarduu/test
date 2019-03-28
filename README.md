@@ -8,6 +8,8 @@ Pre-requisites: have *npm* & *nodeJS* installed on your computer.
 
 Clone the repo into your local computer.
 
+Go inside the root folder.
+
 Run `npm install npm@latest -g`
 
 Run `npm install -g @angular/cli@6.0.8`
