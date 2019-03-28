@@ -15,6 +15,8 @@ export class MainGridComponent {
   searchText: string;
   fromMainGrid = true;
   counter: number;
+  filter: any = 'id';
+  type: any;
   @ViewChild("grid") grid: MatGridList;
 
   filters: any = [
@@ -67,7 +69,7 @@ export class MainGridComponent {
   constructor(
     public itemsService: ItemsService,
     private mediaObserver: ObservableMedia
-  ) {}
+  ) { }
 
   ngAfterContentInit() {
     this.mediaObserver.asObservable().subscribe((change: MediaChange) => {
@@ -94,11 +96,12 @@ export class MainGridComponent {
     this.itemsService.getItemsListInit().then(data => {
       this.itemsList = data;
       this.setItems();
+
     });
   }
 
   setItems() {
-    this.itemsList.forEach(function(item, index) {
+    this.itemsList.forEach(function (item, index) {
       item.all = item.title + item.description + item.email + item.price;
       item.filter1 = item.all;
       item.filter2 = item.all.toLowerCase();
@@ -111,10 +114,14 @@ export class MainGridComponent {
       item.id = index;
     });
     this.filteredItemsList = this.itemsList;
+    console.log("filter: ", this.filter)
   }
 
   filtersChanged(data: any) {
     this.filteredItemsList = data.filteredItemsList;
+    console.log("dataFilteredItems: ", this.filteredItemsList)
+    //this.filteredItemsList = this.bubbleSort(this.filteredItemsList, this.filter);
+    this.orderBy(this.filter, this.type);
   }
 
   favouriteAddRm(data?: any) {
@@ -146,10 +153,13 @@ export class MainGridComponent {
     let n = inArr.length - 1;
     let x = inArr;
 
+    console.log("inArr: ", inArr)
+    console.log("inFilter: ", inFilter)
+
     do {
       swapp = false;
 
-      if (inFilter == "price") {
+      if (inFilter == "price" || inFilter == "id") {
         for (let i = 0; i < n; i++) {
           if (parseInt(x[i][inFilter]) > parseInt(x[i + 1][inFilter])) {
             let temp = x[i];
@@ -185,7 +195,11 @@ export class MainGridComponent {
   }
 
   orderBy(inFilter, inType) {
-    this.bubbleSort(this.filteredItemsList, inFilter);
+
+    this.filter = inFilter;
+    this.type = inType;
+    this.bubbleSort(this.filteredItemsList, this.filter);
+    console.log("filteredItems: ", this.filteredItemsList)
 
     if (inType == "desc") {
       this.filteredItemsList = this.filteredItemsList.reverse();

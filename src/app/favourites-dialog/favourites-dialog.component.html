@@ -1,40 +1,26 @@
 <h1 mat-dialog-title>Favourites</h1>
 
 <mat-form-field>
-  <input
-    matInput
-    [(ngModel)]="searchText"
-    (ngModelChange)="filterItems()"
-    placeholder="Search"
-  />
+  <input matInput [(ngModel)]="searchText" (ngModelChange)="filterItems()" placeholder="Search" />
 </mat-form-field>
-<mat-dialog-content style="width: 500px">
-  <mat-grid-list cols="2" rowHeight="100px" style="margin-top: 10px;">
-    <ng-container *ngFor="let item of filteredItemsList">
-      <mat-grid-tile
-        class="aligner"
-        [colspan]="1"
-        [rowspan]="2"
-        *ngIf="item.favourite == true"
-      >
-        <img mat-card-image src="'../../assets/productImgs/{{ item.image }}" />
-      </mat-grid-tile>
-      <mat-grid-tile
-        class="aligner"
-        [colspan]="1"
-        [rowspan]="1"
-        *ngIf="item.favourite == true"
-      >
-        {{ item.title }}
-      </mat-grid-tile>
-      <mat-grid-tile
-        class="aligner"
-        [colspan]="1"
-        [rowspan]="1"
-        *ngIf="item.favourite == true"
-      >
-        <i class="material-icons hand" (click)="setFavourite(item)">delete</i>
-      </mat-grid-tile>
-    </ng-container>
-  </mat-grid-list>
+<mat-dialog-content>
+  <ng-container *ngFor="let item of filteredItemsList">
+    <div *ngIf="item.favourite == true">
+      <div class="row">
+        <div class="col-12 title-container">
+          <span>{{ item.title }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 aligner">
+          <img mat-card-image src="'../../assets/productImgs/{{ item.image }}" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="text-align: center">
+          <i class="material-icons hand" (click)="setFavourite(item)">delete</i>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </mat-dialog-content>

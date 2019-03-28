@@ -16,10 +16,12 @@ export class MainNavComponent {
   @Input() counter: any;
   @Output() onFiltersChange = new EventEmitter();
 
-  constructor(public dialog: MatDialog, private itemsService: ItemsService) {}
+  constructor(public dialog: MatDialog, private itemsService: ItemsService) { }
 
   ngOnInit() {
+
     this.itemsList = this.filteredItemsList;
+    console.log("itemsList: ", this.itemsList)
     this.counter = 0;
   }
 
@@ -42,7 +44,10 @@ export class MainNavComponent {
           item.filter1.includes(this.searchText) ||
           item.filter2.includes(this.searchText) ||
           item.filter3.includes(this.searchText) ||
-          item.filter4.includes(this.searchText)
+          item.filter4.includes(this.searchText) ||
+          item.filter4.includes(this.searchText.toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, ""))
         ) {
           this.filteredItemsList.push(item);
         }

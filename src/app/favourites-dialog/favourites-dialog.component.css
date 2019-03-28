@@ -1,3 +1,17 @@
 .hand:hover {
   cursor: pointer;
 }
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-container {
+
+  text-align: center; 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  font-weight: bold
+}

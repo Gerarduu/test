@@ -12,7 +12,7 @@ export class FavouritesDialogComponent implements OnInit {
   searchText: string;
   @Output() onFavouriteRm = new EventEmitter();
 
-  constructor(private itemsService: ItemsService) {}
+  constructor(private itemsService: ItemsService) { }
 
   ngOnInit() {
     this.setFavourites();
@@ -41,9 +41,12 @@ export class FavouritesDialogComponent implements OnInit {
 
       this.itemsList.forEach(item => {
         if (
-          item.filter1.includes(this.searchText) ||
-          item.filter2.includes(this.searchText) ||
-          item.filter3.includes(this.searchText)
+          item.title.toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .includes(this.searchText.toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, ""))
         ) {
           this.filteredItemsList.push(item);
         }

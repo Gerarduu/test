@@ -28,3 +28,7 @@
 .mat-card-header .mat-card-subtitle:not(:first-child) {
   margin-top: -15px !important;
 }
+
+.item-title {
+  font-weight: bold;
+}

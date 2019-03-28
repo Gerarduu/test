@@ -1,44 +1,33 @@
-<app-main-nav
-  *ngIf="filteredItemsList != null"
-  [filteredItemsList]="filteredItemsList"
-  (onFiltersChange)="filtersChanged($event)"
-  [counter]="counter"
-></app-main-nav>
+<app-main-nav *ngIf="itemsList.length > 0" [filteredItemsList]="filteredItemsList"
+  (onFiltersChange)="filtersChanged($event)" [counter]="counter"></app-main-nav>
 <mat-form-field class="form-field">
+
   <mat-label>Order By</mat-label>
   <mat-select>
+    <mat-option (click)="orderBy('id','')"> None </mat-option>
     <mat-optgroup *ngFor="let filter of filters" [label]="filter.name">
-      <mat-option
-        *ngFor="let filterType of filter.type"
-        (click)="orderBy(filterType.value, filterType.value2)"
-      >
+      <mat-option *ngFor="let filterType of filter.type" (click)="orderBy(filterType.value, filterType.value2)">
         {{ filterType.viewValue }}
       </mat-option>
     </mat-optgroup>
   </mat-select>
-</mat-form-field>
+</mat-form-field><br><br>
+<span *ngIf="filter != undefined && filter != 'id'" style="margin-left: 15px; color: e5e5e5; font-weight: bold">
+  Filters: <span style="font-weight: normal">
+    {{ filter }}
+    ( {{ type }} ) </span>
+</span>
 <mat-grid-list #grid>
-  <mat-grid-tile
-    class="aligner"
-    [rowspan]="8"
-    *ngFor="
+  <mat-grid-tile class="aligner" [rowspan]="8" *ngFor="
       let item of (filteredItemsList
         | paginate: { itemsPerPage: 5, currentPage: p })
-    "
-  >
-    <app-item-card
-      *ngIf="item"
-      [item]="item"
-      [fromMainGrid]="true"
-      (onFavouriteAddRm)="favouriteAddRm($event)"
-    ></app-item-card>
+    ">
+    <app-item-card *ngIf="item" [item]="item" [fromMainGrid]="true" (onFavouriteAddRm)="favouriteAddRm($event)">
+    </app-item-card>
   </mat-grid-tile>
 </mat-grid-list>
 <mat-grid-list [cols]="1" [rowHeight]="55">
   <mat-grid-tile>
-    <pagination-controls
-      class="my-pagination"
-      (pageChange)="p = $event"
-    ></pagination-controls>
+    <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
   </mat-grid-tile>
 </mat-grid-list>
