@@ -12,10 +12,8 @@
     </mat-optgroup>
   </mat-select>
 </mat-form-field><br><br>
-<span *ngIf="filter != undefined && filter != 'id'" style="margin-left: 15px; color: e5e5e5; font-weight: bold">
-  Filters: <span style="font-weight: normal">
-    {{ filter }}
-    ( {{ type }} ) </span>
+<span *ngIf="filter != undefined && filter != 'id'" class="filters">
+  Filters: <span class="filters-value"> {{ filter }} ({{ type }}) </span>
 </span>
 <mat-grid-list #grid>
   <mat-grid-tile class="aligner" [rowspan]="8" *ngFor="

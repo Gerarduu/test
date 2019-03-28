@@ -114,12 +114,10 @@ export class MainGridComponent {
       item.id = index;
     });
     this.filteredItemsList = this.itemsList;
-    console.log("filter: ", this.filter)
   }
 
   filtersChanged(data: any) {
     this.filteredItemsList = data.filteredItemsList;
-    console.log("dataFilteredItems: ", this.filteredItemsList)
     //this.filteredItemsList = this.bubbleSort(this.filteredItemsList, this.filter);
     this.orderBy(this.filter, this.type);
   }
@@ -138,9 +136,6 @@ export class MainGridComponent {
     let swapp;
     let n = inArr.length - 1;
     let x = inArr;
-
-    console.log("inArr: ", inArr)
-    console.log("inFilter: ", inFilter)
 
     do {
       swapp = false;
@@ -185,7 +180,6 @@ export class MainGridComponent {
     this.filter = inFilter;
     this.type = inType;
     this.bubbleSort(this.filteredItemsList, this.filter);
-    console.log("filteredItems: ", this.filteredItemsList)
 
     if (inType == "desc") {
       this.filteredItemsList = this.filteredItemsList.reverse();

@@ -36,3 +36,12 @@ app-main-nav {
   right: 0;
   z-index: 2;
 }
+
+.filters {
+  margin-left: 20px; 
+  font-weight: bold
+}
+
+.filters-value {
+  font-weight: normal;
+}

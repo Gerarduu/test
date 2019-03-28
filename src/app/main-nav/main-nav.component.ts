@@ -21,7 +21,6 @@ export class MainNavComponent {
   ngOnInit() {
 
     this.itemsList = this.filteredItemsList;
-    console.log("itemsList: ", this.itemsList)
     this.counter = 0;
   }
 
@@ -53,8 +52,6 @@ export class MainNavComponent {
         }
       });
     }
-    //this.itemsService.setItemsList(this.filteredItemsList);
     this.onFiltersChange.emit({ filteredItemsList: this.filteredItemsList });
-    console.log("filteredItems: ", this.filteredItemsList);
   }
 }

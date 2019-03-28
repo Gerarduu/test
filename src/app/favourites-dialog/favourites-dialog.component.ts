@@ -10,7 +10,6 @@ export class FavouritesDialogComponent implements OnInit {
   itemsList: any = [];
   filteredItemsList: any = [];
   searchText: string;
-  @Output() onFavouriteRm = new EventEmitter();
 
   constructor(private itemsService: ItemsService) { }
 
@@ -21,12 +20,10 @@ export class FavouritesDialogComponent implements OnInit {
   setFavourites() {
     this.itemsList = this.itemsService.getItemsList();
     this.filteredItemsList = this.itemsList;
-    console.log("favouritesComponent: ", this.itemsList);
   }
 
   setFavourite(item) {
     this.itemsService.setFavourite(item);
-    //this.onFavouriteRm.emit();
   }
 
   filterItems() {
@@ -52,8 +49,5 @@ export class FavouritesDialogComponent implements OnInit {
         }
       });
     }
-    //this.itemsService.setItemsList(this.filteredItemsList);
-    //this.onFiltersChange.emit({ filteredItemsList: this.filteredItemsList });
-    console.log("filteredItems: ", this.filteredItemsList);
   }
 }
