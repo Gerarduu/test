@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ItemsService } from "../services/items-service/items.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-favourites-dialog",
@@ -11,7 +12,7 @@ export class FavouritesDialogComponent implements OnInit {
   filteredItemsList: any = [];
   searchText: string;
 
-  constructor(private itemsService: ItemsService) { }
+  constructor(private itemsService: ItemsService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.setFavourites();
@@ -24,6 +25,13 @@ export class FavouritesDialogComponent implements OnInit {
 
   setFavourite(item) {
     this.itemsService.setFavourite(item);
+    this.showSnackBar("removed from favourites", "Dismiss", item);
+  }
+
+  showSnackBar(message, action, inItem?) {
+    this.snackBar.open(inItem.title + " was " + message, action, {
+      duration: 2000
+    });
   }
 
   filterItems() {

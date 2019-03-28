@@ -35,7 +35,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   showSnackBar(message, action, inItem?) {
-    this.snackBar.open(inItem.title + " was " + message, "Dismiss  ", {
+    this.snackBar.open(inItem.title + " was " + message, action, {
       duration: 2000
     });
   }
