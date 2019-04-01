@@ -9,6 +9,7 @@ import { getSymbolIterator } from "@angular/core/src/util";
 })
 export class AppComponent {
   itemsList: any = [];
+  title = "app";
 
   constructor(public dialog: MatDialog) {}
 }

@@ -1,16 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ItemCardComponent } from './item-card.component';
+import { ItemCardComponent } from "./item-card.component";
 
-describe('ItemCardComponent', () => {
+import { MatSnackBarModule, MatCardModule } from "@angular/material";
+import { HttpClientModule } from "@angular/common/http";
+
+describe("ItemCardComponent", () => {
   let component: ItemCardComponent;
   let fixture: ComponentFixture<ItemCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemCardComponent ]
-    })
-    .compileComponents();
+      imports: [MatSnackBarModule, MatCardModule, HttpClientModule],
+      declarations: [ItemCardComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +22,7 @@ describe('ItemCardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

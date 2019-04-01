@@ -1,11 +1,87 @@
 import { TestBed, async } from "@angular/core/testing";
+
+//Main
+import { LayoutModule } from "@angular/cdk/layout";
+import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+//Angular Material Design
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatGridListModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatBadgeModule
+} from "@angular/material";
+import { MatCardModule } from "@angular/material/card";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTableModule } from "@angular/material/table";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+//Components
 import { AppComponent } from "./app.component";
+import { FavouritesDialogComponent } from "./favourites-dialog/favourites-dialog.component";
+import { MainGridComponent } from "./main-grid/main-grid.component";
+import { ItemCardComponent } from "./item-card/item-card.component";
+import { MainNavComponent } from "./main-nav/main-nav.component";
+
+//Pagination
+import { NgxPaginationModule } from "ngx-pagination";
+
+//ResponsiveLayout
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+//Polyfill for normalize("NFD") function in IE11
+import "unorm";
 describe("AppComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      declarations: [
+        AppComponent,
+        MainNavComponent,
+        MainGridComponent,
+        FavouritesDialogComponent,
+        ItemCardComponent
+      ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        MatGridListModule,
+        MatMenuModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTableModule,
+        MatCardModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatBadgeModule,
+        LayoutModule,
+        MatSidenavModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        FlexLayoutModule
+      ],
+      providers: []
     }).compileComponents();
   }));
+
   it("should create the app", async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
@@ -15,13 +91,5 @@ describe("AppComponent", () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual("app");
-  }));
-  it("should render title in a h1 tag", async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("h1").textContent).toContain(
-      "Welcome to my-new-app!"
-    );
   }));
 });

@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material";
   styleUrls: ["./item-card.component.css"]
 })
 export class ItemCardComponent implements OnInit {
-  @Input() item: any;
+  @Input() item: any = {};
   @Input() fromMainGrid: boolean;
   @Output() onFavouriteAddRm = new EventEmitter();
 
