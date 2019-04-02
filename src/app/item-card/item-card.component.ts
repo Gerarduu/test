@@ -12,6 +12,7 @@ export class ItemCardComponent implements OnInit {
   @Input() item: any = {};
   @Input() fromMainGrid: boolean;
   @Output() onFavouriteAddRm = new EventEmitter();
+  message: string = "";
 
   constructor(
     public itemsService: ItemsService,
@@ -21,17 +22,15 @@ export class ItemCardComponent implements OnInit {
   ngOnInit() {}
 
   setFavourite() {
-    let message;
-
     if (this.item.favourite == false) {
-      message = "added to favourites";
+      this.message = "added to favourites";
     } else {
-      message = "removed from favourites";
+      this.message = "removed from favourites";
     }
 
     this.itemsService.setFavourite(this.item);
     this.onFavouriteAddRm.emit({ inItem: this.item });
-    this.showSnackBar(message, "Dismiss", this.item);
+    this.showSnackBar(this.message, "Dismiss", this.item);
   }
 
   showSnackBar(message, action, inItem?) {
