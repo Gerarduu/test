@@ -26,8 +26,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 //Components
 import { AppComponent } from "./app.component";
-import { FavouritesDialogComponent } from "./favourites-dialog/favourites-dialog.component";
-import { MainGridComponent } from "./main-grid/main-grid.component";
 import { ItemCardComponent } from "./item-card/item-card.component";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 
@@ -39,15 +37,14 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 //Polyfill for normalize("NFD") function in IE11
 import "unorm";
-import { AppRoutingModule } from ".//app-routing.module";
+import { AppRoutingModule, routingCompoents } from ".//app-routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    MainGridComponent,
-    FavouritesDialogComponent,
-    ItemCardComponent
+    ItemCardComponent,
+    routingCompoents
   ],
   imports: [
     BrowserModule,
@@ -78,7 +75,6 @@ import { AppRoutingModule } from ".//app-routing.module";
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [FavouritesDialogComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

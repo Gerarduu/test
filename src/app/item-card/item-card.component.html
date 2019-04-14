@@ -1,13 +1,28 @@
 <mat-card class="card" style="width: 250px">
   <img mat-card-image style="height:250px" src="{{ item.artworkUrl100 }}" />
   <mat-card-content>
-    <p *ngIf="fromMainGrid">
+    <p *ngIf="item.kind == 'song'">
       {{ item.trackName }}
+    </p>
+    <p *ngIf="item.collectionType == 'Album'">
+      {{ item.collectionCensoredName }}
+    </p>
+    <p class="artist-name">
+      {{ item.artistName }}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <i class="material-icons margin hand" (click)="setFavourite(item)"
+    <i
+      *ngIf="!item.favourite || item.favourite == false"
+      class="material-icons margin hand"
+      (click)="setFavourite(item)"
       >favorite_border</i
+    >
+    <i
+      *ngIf="item.favourite == true"
+      class="material-icons margin hand"
+      (click)="setFavourite(item)"
+      >favorite</i
     >
   </mat-card-actions>
 </mat-card>

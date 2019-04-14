@@ -5,11 +5,11 @@ import { MediaChange, ObservableMedia } from "@angular/flex-layout";
 import { MatGridList } from "@angular/material";
 
 @Component({
-  selector: "app-main-grid",
-  templateUrl: "./main-grid.component.html",
-  styleUrls: ["./main-grid.component.css"]
+  selector: "app-albums-grid",
+  templateUrl: "./albums-grid.component.html",
+  styleUrls: ["./albums-grid.component.css"]
 })
-export class MainGridComponent {
+export class AlbumsGridComponent {
   itemsList: any = [];
   filteredItemsList: any = [];
   searchText: string;
@@ -49,6 +49,13 @@ export class MainGridComponent {
   ngDoCheck() {
     this.filteredItemsList = this.itemsService.itemsList;
   }
+
+  /*getItems() {
+    this.itemsService.getItemsListInit().then(data => {
+      this.itemsList = data;
+      //this.setItems();
+    });
+  }*/
 
   favouriteAddRm(data?: any) {
     this.counter = 0;

@@ -8,22 +8,70 @@
         matInput
         placeholder="Search"
         [(ngModel)]="searchText"
-        (ngModelChange)="filterItems()"
         class="search-input"
+        #searchInput
       />
+      <a
+        routerLink="/albums"
+        routerLinkActive="active"
+        (click)="changeRouting()"
+        mat-raised-button
+        color="accent"
+        style="margin-right: 20px"
+        *ngIf="routing == '/'"
+      >
+        Albums
+      </a>
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        (click)="changeRouting()"
+        mat-raised-button
+        color="accent"
+        style="margin-right: 20px"
+        *ngIf="routing == '/albums'"
+      >
+        Songs
+      </a>
+
       <span class="spacer"></span>
+
       <mat-icon
-        *ngIf="this.itemsService.favouritesList.length > 0"
+        *ngIf="
+          this.itemsService.favouritesList.length > 0 &&
+          this.itemsService.entity == 'song'
+        "
         matBadge="{{ this.itemsService.favouritesList.length }}"
         matBadgeColor="warn"
-        class="favourite-icon-navbar hand margin"
-        (click)="openDialog()"
+        class="favourite-icon-navbar  margin"
         >favorite_border</mat-icon
       >
       <mat-icon
-        *ngIf="this.itemsService.favouritesList.length < 1"
-        class="favourite-icon-navbar hand margin"
-        (click)="openDialog()"
+        *ngIf="
+          this.itemsService.favouritesList.length < 1 &&
+          this.itemsService.entity == 'song'
+        "
+        class="favourite-icon-navbar margin"
+        >favorite_border</mat-icon
+      >
+
+      <mat-icon
+        *ngIf="
+          this.itemsService.favouriteAlbumsList.length > 0 &&
+          this.itemsService.entity == 'album'
+        "
+        matBadge="{{ this.itemsService.favouriteAlbumsList.length }}"
+        matBadgeColor="warn"
+        class="favourite-icon-navbar  margin"
+        >favorite_border</mat-icon
+      >
+      <mat-icon
+        *ngIf="
+          this.itemsService.favouriteAlbumsList.length < 1 &&
+          this.itemsService.entity == 'album'
+        "
+        class="favourite-icon-navbar  margin"
         >favorite_border</mat-icon
       >
     </mat-toolbar>

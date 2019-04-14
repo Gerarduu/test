@@ -11,7 +11,6 @@ import { MatSnackBar } from "@angular/material";
 export class ItemCardComponent implements OnInit {
   @Input() item: any = {};
   @Input() fromMainGrid: boolean;
-  @Output() onFavouriteAddRm = new EventEmitter();
   message: string = "";
 
   constructor(
@@ -22,19 +21,59 @@ export class ItemCardComponent implements OnInit {
   ngOnInit() {}
 
   setFavourite() {
-    if (this.item.favourite == false) {
-      this.message = "added to favourites";
+    let itemMsg;
+
+    if (this.itemsService.entity == "album") {
+      //If doesn't find the item
+      if (
+        !this.itemsService.favouriteAlbumsList.find(
+          elem =>
+            elem.collectionId + elem.collectionType ==
+            this.item.collectionId + elem.collectionType
+        )
+      ) {
+        this.itemsService.favouriteAlbumsList.push(this.item);
+        this.item.favourite = true;
+        this.message = "added to favourites";
+
+        //If finds the item
+      } else {
+        let index = this.itemsService.favouriteAlbumsList.indexOf(this.item);
+
+        this.itemsService.favouriteAlbumsList.splice(index, 1);
+        this.item.favourite = false;
+        this.message = "removed from favourites";
+      }
+
+      itemMsg = this.item.collectionName;
     } else {
-      this.message = "removed from favourites";
+      //If doesn't find the item
+      if (
+        !this.itemsService.favouritesList.find(
+          elem => elem.trackId == this.item.trackId
+        )
+      ) {
+        this.itemsService.favouritesList.push(this.item);
+        this.item.favourite = true;
+        this.message = "added to favourites";
+
+        //If finds the item
+      } else {
+        let index = this.itemsService.favouritesList.indexOf(this.item);
+
+        this.itemsService.favouritesList.splice(index, 1);
+        this.item.favourite = false;
+        this.message = "removed from favourites";
+      }
+
+      itemMsg = this.item.trackName;
     }
 
-    this.itemsService.setFavourite(this.item);
-    this.onFavouriteAddRm.emit({ inItem: this.item });
-    this.showSnackBar(this.message, "Dismiss", this.item);
+    this.showSnackBar(this.message, "Dismiss", itemMsg);
   }
 
   showSnackBar(message, action, inItem?) {
-    this.snackBar.open(inItem.title + " was " + message, action, {
+    this.snackBar.open(inItem + " was " + message, action, {
       duration: 2000
     });
   }

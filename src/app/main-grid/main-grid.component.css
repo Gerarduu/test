@@ -14,10 +14,6 @@
   outline: none;
 }
 
-.my-pagination /deep/ .ngx-pagination .current {
-  background: #009b8b;
-}
-
 .aligner {
   display: flex;
   align-items: center;
@@ -27,14 +23,6 @@
 .form-field {
   margin-top: 100px;
   margin-left: 20px;
-}
-
-app-main-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
 }
 
 .filters {

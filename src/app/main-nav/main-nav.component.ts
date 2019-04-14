@@ -1,7 +1,14 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { FavouritesDialogComponent } from "../favourites-dialog/favourites-dialog.component";
 import { ItemsService } from "../services/items-service/items.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-main-nav",
@@ -13,19 +20,31 @@ export class MainNavComponent {
   searchText: any;
   itemsList: any;
   favouritesList: any;
+  routing: any = "/";
+  entity: any = "song";
   @Input() filteredItemsList: any;
   @Input() counter: any;
   @Output() onFiltersChange = new EventEmitter();
+  @ViewChild("searchInput") searchInput: ElementRef;
+  @ViewChild("routingBtn") routingBtn;
 
   constructor(public dialog: MatDialog, private itemsService: ItemsService) {}
 
   ngOnInit() {
     this.itemsList = this.filteredItemsList;
     this.counter = 0;
-  }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(FavouritesDialogComponent);
+    Observable.fromEvent(this.searchInput.nativeElement, "keyup") // get value
+      .map((evt: any) => evt.target.value)
+      .debounceTime(1000)
+
+      .distinctUntilChanged()
+
+      .subscribe(data => {
+        console.log("data: ", data);
+        this.searchText = data;
+        this.filterItems();
+      });
   }
 
   filterItems() {
@@ -35,12 +54,10 @@ export class MainNavComponent {
       this.searchText != undefined
     ) {
       this.itemsService
-        .getDataFromAPI(this.searchText)
-        .debounceTime(50000)
+        .getDataFromAPI(this.searchText, this.entity)
         .subscribe(data => {
           this.itemsList = [];
-          this.filteredItemsList = [];
-
+          this.itemsService.itemsList = [];
           this.itemsList = data;
           this.itemsList = this.itemsList.results;
 
@@ -59,15 +76,48 @@ export class MainNavComponent {
                     .replace(/[\u0300-\u036f]/g, "")
                 )
             ) {
-              this.filteredItemsList.push(item);
-              this.onFiltersChange.emit({
-                filteredItemsList: this.filteredItemsList
-              });
+              if (this.routing == "/") {
+                if (
+                  this.itemsService.favouritesList.find(
+                    elem => elem.trackId == item.trackId
+                  )
+                ) {
+                  item.favourite = true;
+                }
+              } else {
+                if (
+                  this.itemsService.favouriteAlbumsList.find(
+                    elem =>
+                      elem.collectionId + elem.collectionType ==
+                      item.collectionId + elem.collectionType
+                  )
+                ) {
+                  item.favourite = true;
+                }
+              }
+
+              this.itemsService.itemsList.push(item);
             }
           });
-          console.log("filteredItems: ", this.filteredItemsList);
         });
     } else {
+      this.itemsService.itemsList = [];
+    }
+  }
+
+  changeRouting() {
+    if (this.routing == "/") {
+      this.routing = "/albums";
+      this.entity = "album";
+    } else {
+      this.routing = "/";
+      this.entity = "song";
+    }
+
+    if (this.searchText != "") {
+      setTimeout(() => {
+        this.filterItems();
+      }, 1000);
     }
   }
 }
