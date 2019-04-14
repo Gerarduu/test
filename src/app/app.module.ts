@@ -39,6 +39,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 //Polyfill for normalize("NFD") function in IE11
 import "unorm";
+import { AppRoutingModule } from ".//app-routing.module";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import "unorm";
     MatSidenavModule,
     HttpClientModule,
     NgxPaginationModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

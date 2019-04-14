@@ -12,6 +12,7 @@ export class MainNavComponent {
   favouritesCounter: any = 0;
   searchText: any;
   itemsList: any;
+  favouritesList: any;
   @Input() filteredItemsList: any;
   @Input() counter: any;
   @Output() onFiltersChange = new EventEmitter();
@@ -29,31 +30,44 @@ export class MainNavComponent {
 
   filterItems() {
     if (
-      this.searchText == "" ||
-      this.searchText == undefined ||
-      this.searchText == null
+      this.searchText != "" &&
+      this.searchText != null &&
+      this.searchText != undefined
     ) {
-      this.filteredItemsList = this.itemsList;
-    } else {
-      this.filteredItemsList = [];
+      this.itemsService
+        .getDataFromAPI(this.searchText)
+        .debounceTime(50000)
+        .subscribe(data => {
+          this.itemsList = [];
+          this.filteredItemsList = [];
 
-      this.itemsList.forEach(item => {
-        if (
-          item.filter1.includes(this.searchText) ||
-          item.filter2.includes(this.searchText) ||
-          item.filter3.includes(this.searchText) ||
-          item.filter4.includes(this.searchText) ||
-          item.filter4.includes(
-            this.searchText
-              .toLowerCase()
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-          )
-        ) {
-          this.filteredItemsList.push(item);
-        }
-      });
+          this.itemsList = data;
+          this.itemsList = this.itemsList.results;
+
+          console.log("itemsList: ", this.itemsList);
+
+          this.itemsList.forEach(item => {
+            if (
+              item.artistName
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .includes(
+                  this.searchText
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                )
+            ) {
+              this.filteredItemsList.push(item);
+              this.onFiltersChange.emit({
+                filteredItemsList: this.filteredItemsList
+              });
+            }
+          });
+          console.log("filteredItems: ", this.filteredItemsList);
+        });
+    } else {
     }
-    this.onFiltersChange.emit({ filteredItemsList: this.filteredItemsList });
   }
 }

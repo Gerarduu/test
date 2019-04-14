@@ -1,24 +1,25 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Http, Response } from "@angular/http";
+import { map } from "rxjs/operators";
+import "rxjs/Rx";
 
 @Injectable({
   providedIn: "root"
 })
 export class ItemsService {
-  private itemsList: any = [];
+  public itemsList: any = [];
+  public favouritesList: any = [];
   public favouriteCounter: number = 0;
 
   constructor(private http: HttpClient) {}
 
-  public getItemsListInit(): Promise<any> {
-    return Promise.resolve(this.getJSON()).then(data => {
-      this.itemsList = data.items;
-      return this.itemsList;
-    });
-  }
+  public getItemsListInit() {}
 
-  private getJSON(): Promise<any> {
-    return this.http.get("../../assets/items.json").toPromise();
+  public getDataFromAPI(inSearchText) {
+    return this.http.get(
+      "https://itunes.apple.com/search?term=" + inSearchText + "&entity=song"
+    );
   }
 
   public getItemsList() {
@@ -30,16 +31,11 @@ export class ItemsService {
   }
 
   public setFavourite(inItem) {
-    for (let i = 0; i < this.itemsList.length; i++) {
-      if (this.itemsList[i].id == inItem.id) {
-        if (this.itemsList[i].favourite == false) {
-          this.itemsList[i].favourite = true;
-        } else {
-          this.itemsList[i].favourite = false;
-        }
-      }
+    if (!this.favouritesList.find(elem => elem.trackId == inItem.trackId)) {
+      this.favouritesList.push(inItem);
     }
-    this.countFavourites();
+
+    console.log("favouritesList: ", this.favouritesList);
   }
 
   countFavourites() {

@@ -59,11 +59,11 @@ export class MainGridComponent {
   };
 
   heightByBreakpoint = {
-    xl: 115,
-    lg: 105,
-    md: 95,
-    sm: 105,
-    xs: 110
+    xl: 50,
+    lg: 50,
+    md: 50,
+    sm: 50,
+    xs: 50
   };
 
   constructor(
@@ -79,7 +79,7 @@ export class MainGridComponent {
   }
 
   ngOnInit() {
-    this.getItems();
+    //this.getItems();
   }
 
   ngDoCheck() {
@@ -92,12 +92,12 @@ export class MainGridComponent {
     }
   }
 
-  getItems() {
+  /*getItems() {
     this.itemsService.getItemsListInit().then(data => {
       this.itemsList = data;
-      this.setItems();
+      //this.setItems();
     });
-  }
+  }*/
 
   setItems() {
     this.itemsList.forEach(function(item, index) {
