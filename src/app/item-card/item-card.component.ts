@@ -24,7 +24,6 @@ export class ItemCardComponent implements OnInit {
     let itemMsg;
 
     if (this.itemsService.entity == "album") {
-      //If doesn't find the item
       if (
         !this.itemsService.favouriteAlbumsList.find(
           elem =>
@@ -35,8 +34,6 @@ export class ItemCardComponent implements OnInit {
         this.itemsService.favouriteAlbumsList.push(this.item);
         this.item.favourite = true;
         this.message = "added to favourites";
-
-        //If finds the item
       } else {
         let index = this.itemsService.favouriteAlbumsList.indexOf(this.item);
 
@@ -47,7 +44,6 @@ export class ItemCardComponent implements OnInit {
 
       itemMsg = this.item.collectionName;
     } else {
-      //If doesn't find the item
       if (
         !this.itemsService.favouritesList.find(
           elem => elem.trackId == this.item.trackId
@@ -56,8 +52,6 @@ export class ItemCardComponent implements OnInit {
         this.itemsService.favouritesList.push(this.item);
         this.item.favourite = true;
         this.message = "added to favourites";
-
-        //If finds the item
       } else {
         let index = this.itemsService.favouritesList.indexOf(this.item);
 

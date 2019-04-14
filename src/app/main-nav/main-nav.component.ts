@@ -16,7 +16,6 @@ import { Observable } from "rxjs";
   styleUrls: ["./main-nav.component.css"]
 })
 export class MainNavComponent {
-  favouritesCounter: any = 0;
   searchText: any;
   itemsList: any;
   favouritesList: any;
@@ -41,7 +40,6 @@ export class MainNavComponent {
       .distinctUntilChanged()
 
       .subscribe(data => {
-        console.log("data: ", data);
         this.searchText = data;
         this.filterItems();
       });

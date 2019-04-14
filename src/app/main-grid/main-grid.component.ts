@@ -49,14 +49,4 @@ export class MainGridComponent {
   ngDoCheck() {
     this.filteredItemsList = this.itemsService.itemsList;
   }
-
-  favouriteAddRm(data?: any) {
-    this.counter = 0;
-
-    for (let i = 0; i < this.itemsList.length; i++) {
-      if (this.itemsList[i].favourite == true) {
-        this.counter++;
-      }
-    }
-  }
 }
